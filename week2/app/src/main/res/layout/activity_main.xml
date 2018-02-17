@@ -8,72 +8,96 @@
     tools:context="com.andy_huang.mycalculator.MainActivity">
 
 
-    <ImageButton
-        android:id="@+id/Button0"
+    <ImageView
+        android:id="@+id/keyNumber0"
         android:layout_width="0dp"
-        android:layout_height="50"
+        android:layout_height="0dp"
+        android:background="@color/MyCaculator_Key"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton3"
+        app:layout_constraintEnd_toStartOf="@+id/keyNumber2"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/keyNumber1"
+
         app:srcCompat="@drawable/calculator_0" />
 
-    <ImageButton
-        android:id="@+id/imageButton2"
+    <ImageView
+        android:id="@+id/keyNumber1"
         android:layout_width="0dp"
-        android:layout_height="50"
+        android:layout_height="0dp"
+        android:background="@color/MyCaculator_Key"
         android:elevation="0dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton3"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/keyNumber0"
+        app:layout_constraintEnd_toStartOf="@+id/keyNumber2"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/calculator_1"
-        tools:layout_editor_absoluteY="383dp" />
+        app:layout_constraintTop_toBottomOf="@+id/keyNumber4"
+        app:srcCompat="@drawable/calculator_1" />
 
-    <ImageButton
-        android:id="@+id/imageButton3"
+    <ImageView
+        android:id="@+id/keyNumber2"
         android:layout_width="0dp"
-        android:layout_height="50"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton4"
+        android:layout_height="0dp"
+        android:background="@color/MyCaculator_Key"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/keyNumber1"
+        app:layout_constraintEnd_toStartOf="@+id/keyNumber3"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageButton2"
-        app:srcCompat="@drawable/calculator_2"
-        tools:layout_editor_absoluteY="391dp" />
+        app:layout_constraintStart_toEndOf="@+id/keyNumber1"
+        app:layout_constraintTop_toBottomOf="@+id/keyNumber4"
+        app:srcCompat="@drawable/calculator_2" />
 
-    <ImageButton
-        android:id="@+id/imageButton4"
+    <ImageView
+        android:id="@+id/keyNumber3"
         android:layout_width="0dp"
-        android:layout_height="50"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton5"
+        android:layout_height="0dp"
+        android:background="@color/MyCaculator_Key"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/keyEqual"
+        app:layout_constraintEnd_toStartOf="@+id/keyPlus"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageButton3"
-        app:srcCompat="@drawable/calculator_3"
-        tools:layout_editor_absoluteY="373dp" />
+        app:layout_constraintStart_toEndOf="@+id/keyNumber2"
+        app:layout_constraintTop_toBottomOf="@+id/keyNumber6"
+        app:srcCompat="@drawable/calculator_3" />
 
-    <ImageButton
-        android:id="@+id/imageButton5"
+    <ImageView
+        android:id="@+id/keyPlus"
         android:layout_width="0dp"
-        android:layout_height="50"
+        android:layout_height="0dp"
+        android:background="@color/MyCaculator_Key"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/keyNumber3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageButton4"
-        app:srcCompat="@drawable/calculator_plus"
-        tools:layout_editor_absoluteY="373dp" />
+        app:layout_constraintStart_toEndOf="@+id/keyNumber3"
+        app:layout_constraintTop_toBottomOf="@+id/keyNumber6"
+        app:srcCompat="@drawable/calculator_plus" />
 
-    <ImageButton
-        android:id="@+id/imageButton6"
+    <ImageView
+        android:id="@+id/keyDot"
         android:layout_width="0dp"
-        android:layout_height="50"
+        android:layout_height="0dp"
+        android:background="@color/MyCaculator_Key"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageButton3"
-        app:layout_constraintStart_toEndOf="@+id/Button0"
+        app:layout_constraintEnd_toEndOf="@+id/keyNumber2"
+        app:layout_constraintStart_toEndOf="@+id/keyNumber0"
+        app:layout_constraintTop_toBottomOf="@+id/keyNumber1"
         app:srcCompat="@drawable/calculator_point" />
 
-    <ImageButton
-        android:id="@+id/imageButton7"
+    <ImageView
+        android:id="@+id/keyEqual"
         android:layout_width="0dp"
-        android:layout_height="50"
+        android:layout_height="0dp"
+        android:background="@color/MyCaculator_Key"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageButton6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/keyDot"
+        app:layout_constraintTop_toBottomOf="@+id/keyNumber3"
         app:srcCompat="@drawable/calculator_equals" />
 
     <android.support.constraint.Guideline
@@ -81,136 +105,203 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.13" />
+        app:layout_constraintGuide_percent="0.09001957" />
 
-    <ImageButton
-        android:id="@+id/imageButton12"
+    <ImageView
+        android:id="@+id/keyNumber4"
         android:layout_width="0dp"
-        android:layout_height="50"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton13"
+        android:layout_height="0dp"
+        android:background="@color/MyCaculator_Key"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/keyNumber1"
+        app:layout_constraintEnd_toStartOf="@+id/keyNumber5"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/calculator_4"
-        tools:layout_editor_absoluteY="296dp" />
+        app:layout_constraintTop_toBottomOf="@+id/keyNumber7"
+        app:srcCompat="@drawable/calculator_4" />
 
-    <ImageButton
-        android:id="@+id/imageButton13"
+    <ImageView
+        android:id="@+id/keyNumber5"
         android:layout_width="0dp"
-        android:layout_height="50"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton14"
+        android:layout_height="0dp"
+        android:background="@color/MyCaculator_Key"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/keyNumber4"
+        app:layout_constraintEnd_toStartOf="@+id/keyNumber6"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageButton12"
-        app:srcCompat="@drawable/calculator_5"
-        tools:layout_editor_absoluteY="296dp" />
+        app:layout_constraintStart_toEndOf="@+id/keyNumber4"
+        app:layout_constraintTop_toBottomOf="@+id/keyNumber7"
+        app:srcCompat="@drawable/calculator_5" />
 
-    <ImageButton
-        android:id="@+id/imageButton14"
+    <ImageView
+        android:id="@+id/keyNumber6"
         android:layout_width="0dp"
-        android:layout_height="50"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton15"
+        android:layout_height="0dp"
+        android:background="@color/MyCaculator_Key"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/keyNumber3"
+        app:layout_constraintEnd_toStartOf="@+id/keyMinus"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageButton13"
-        app:srcCompat="@drawable/calculator_6"
-        tools:layout_editor_absoluteY="273dp" />
+        app:layout_constraintStart_toEndOf="@+id/keyNumber5"
+        app:layout_constraintTop_toBottomOf="@+id/keyNumber9"
+        app:srcCompat="@drawable/calculator_6" />
 
-    <ImageButton
-        android:id="@+id/imageButton15"
+    <ImageView
+        android:id="@+id/keyMinus"
         android:layout_width="0dp"
-        android:layout_height="50"
+        android:layout_height="0dp"
+        android:background="@color/MyCaculator_Key"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/keyNumber6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageButton14"
-        app:srcCompat="@drawable/calculator_minus"
-        tools:layout_editor_absoluteY="273dp" />
+        app:layout_constraintStart_toEndOf="@+id/keyNumber6"
+        app:layout_constraintTop_toBottomOf="@+id/keyNumber9"
+        app:srcCompat="@drawable/calculator_minus" />
 
-    <ImageButton
-        android:id="@+id/imageButton16"
+    <ImageView
+        android:id="@+id/keyNumber7"
         android:layout_width="96dp"
-        android:layout_height="51dp"
-        app:layout_aspectRatio="100%"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton17"
+        android:layout_height="0dp"
+        android:background="@color/MyCaculator_Key"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/keyNumber4"
+        app:layout_constraintEnd_toStartOf="@+id/keyNumber8"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/calculator_7"
-        tools:layout_editor_absoluteY="212dp" />
+        app:layout_constraintTop_toBottomOf="@+id/keyC"
+        app:srcCompat="@drawable/calculator_7" />
 
-    <ImageButton
-        android:id="@+id/imageButton17"
+    <ImageView
+        android:id="@+id/keyNumber8"
 
         android:layout_width="0dp"
-        android:layout_height="50"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton18"
+        android:layout_height="0dp"
+        android:background="@color/MyCaculator_Key"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/keyNumber7"
+        app:layout_constraintEnd_toStartOf="@+id/keyNumber9"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageButton16"
-        app:srcCompat="@drawable/calculator_8"
-        tools:layout_editor_absoluteY="230dp" />
+        app:layout_constraintStart_toEndOf="@+id/keyNumber7"
+        app:layout_constraintTop_toBottomOf="@+id/keyC"
+        app:srcCompat="@drawable/calculator_8" />
 
-    <ImageButton
-        android:id="@+id/imageButton18"
+    <ImageView
+        android:id="@+id/keyNumber9"
         android:layout_width="0dp"
-        android:layout_height="50"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton19"
+        android:layout_height="0dp"
+        android:background="@color/MyCaculator_Key"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/keyNumber6"
+        app:layout_constraintEnd_toStartOf="@+id/keyMutiple"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageButton17"
-        app:srcCompat="@drawable/calculator_9"
-        tools:layout_editor_absoluteY="196dp" />
+        app:layout_constraintStart_toEndOf="@+id/keyNumber8"
+        app:layout_constraintTop_toBottomOf="@+id/keyPerC_ent"
+        app:srcCompat="@drawable/calculator_9" />
 
-    <ImageButton
-        android:id="@+id/imageButton19"
+    <ImageView
+        android:id="@+id/keyMutiple"
         android:layout_width="0dp"
-        android:layout_height="50"
+        android:layout_height="0dp"
+        android:background="@color/MyCaculator_Key"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/keyNumber9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageButton18"
-        app:srcCompat="@drawable/calculator_times"
-        tools:layout_editor_absoluteY="230dp" />
+        app:layout_constraintStart_toEndOf="@+id/keyNumber9"
+        app:layout_constraintTop_toBottomOf="@+id/keyDivide"
+        app:srcCompat="@drawable/calculator_times" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/outputTextView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/darker_gray"
+        android:gravity="bottom|right"
+        android:text="99999999"
+        android:textColor="@android:color/white"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <ImageView
+        android:id="@+id/keyC"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:adjustViewBounds="false"
+        android:background="@color/MyCaculator_Key"
+        android:elevation="0dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/keyNumber7"
+        app:layout_constraintEnd_toStartOf="@+id/keyPlusAndMinus"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/outputTextView"
+        app:srcCompat="@drawable/calculator_reset" />
+
+    <ImageView
+        android:id="@+id/keyPlusAndMinus"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/MyCaculator_Key"
+        android:elevation="1dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/keyC"
+        app:layout_constraintEnd_toStartOf="@+id/keyPerC_ent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/keyC"
+        app:layout_constraintTop_toTopOf="@+id/keyC"
+        app:srcCompat="@drawable/calculator_changesign" />
+
+    <ImageView
+        android:id="@+id/keyPerC_ent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/MyCaculator_Key"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/keyNumber9"
+        app:layout_constraintEnd_toStartOf="@+id/keyDivide"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/keyPlusAndMinus"
+        app:layout_constraintTop_toTopOf="@+id/keyC"
+        app:srcCompat="@drawable/calculator_percent" />
+
+    <ImageView
+        android:id="@+id/keyDivide"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/MyCaculator_Key"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/keyC"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/keyPerC_ent"
+        app:layout_constraintTop_toTopOf="@+id/keyC"
+
+        app:srcCompat="@drawable/calculator_divide" />
+
+    <TextView
+        android:id="@+id/inputTextView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/darker_gray"
+        android:gravity="bottom|right"
+        android:text="333333"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/outputTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline" />
-
-    <ImageButton
-        android:id="@+id/imageButtonC"
-        android:layout_width="0dp"
-        android:layout_height="50"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton21"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/calculator_reset"
-        tools:layout_editor_absoluteY="122dp" />
-
-    <ImageButton
-        android:id="@+id/imageButton21"
-        android:layout_width="0dp"
-        android:layout_height="50"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton22"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageButtonC"
-        app:srcCompat="@drawable/calculator_changesign"
-        tools:layout_editor_absoluteY="130dp" />
-
-    <ImageButton
-        android:id="@+id/imageButton22"
-        android:layout_width="0dp"
-        android:layout_height="50"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton23"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageButton21"
-        app:srcCompat="@drawable/calculator_percent"
-        tools:layout_editor_absoluteY="109dp" />
-
-    <ImageButton
-        android:id="@+id/imageButton23"
-        android:layout_width="0dp"
-        android:layout_height="50"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageButton22"
-        app:srcCompat="@drawable/calculator_divide"
-        tools:layout_editor_absoluteY="122dp" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.19" />
 </android.support.constraint.ConstraintLayout>
