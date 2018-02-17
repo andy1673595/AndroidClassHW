@@ -7,4 +7,26 @@
     android:addStatesFromChildren="false"
     tools:context="com.andy_huang.mycalculator.MainActivity">
 
+
+    <TextView
+        android:id="@+id/inputTextView"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:gravity="bottom|right"
+        android:text="3333333333333"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/outputTextView"
+        android:layout_width="0dp"
+        android:layout_height="76dp"
+        android:gravity="bottom|right"
+        android:text="33333333"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputTextView" />
 </android.support.constraint.ConstraintLayout>
