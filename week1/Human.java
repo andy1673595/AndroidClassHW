@@ -1,7 +1,7 @@
 
 public class Human {
 
-	/***
+	/****
 	**************** Tips ****************
 	* Jobs: Hunter, Warrior, Mage
 	* Weapons and Skills:
