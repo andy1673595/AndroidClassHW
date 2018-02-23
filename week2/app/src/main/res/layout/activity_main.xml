@@ -7,7 +7,46 @@
     android:addStatesFromChildren="false"
     tools:context="com.andy_huang.mycalculator.MainActivity">
 
+    <android.support.constraint.Guideline
+        android:id="@+id/lineInputTxetAndOutputText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.09" />
 
+    <android.support.constraint.Guideline
+        android:id="@+id/lineKeyAndText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.19" />
+
+    <TextView
+        android:id="@+id/outputTextView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/darker_gray"
+        android:gravity="bottom|right"
+        android:text="99999999"
+        android:textColor="@android:color/white"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toTopOf="@+id/lineKeyAndText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/lineInputTxetAndOutputText" />
+
+    <TextView
+        android:id="@+id/inputTextView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/darker_gray"
+        android:gravity="bottom|right"
+        android:text="333333"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/outputTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <ImageButton
         android:id="@+id/keyNumber0"
         android:layout_width="0dp"
@@ -92,12 +131,6 @@
         app:layout_constraintTop_toBottomOf="@+id/keyNumber3"
         app:srcCompat="@drawable/calculator_equals" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/lineInputTxetAndOutputText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.09" />
 
     <ImageButton
         android:id="@+id/keyNumber4"
@@ -197,19 +230,6 @@
         app:layout_constraintTop_toBottomOf="@+id/keyDivide"
         app:srcCompat="@drawable/calculator_times" />
 
-    <TextView
-        android:id="@+id/outputTextView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@android:color/darker_gray"
-        android:gravity="bottom|right"
-        android:text="99999999"
-        android:textColor="@android:color/white"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/lineKeyAndText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/lineInputTxetAndOutputText" />
 
     <ImageButton
         android:id="@+id/keyC"
@@ -260,23 +280,5 @@
         app:layout_constraintTop_toTopOf="@+id/keyC"
         app:srcCompat="@drawable/calculator_divide" />
 
-    <TextView
-        android:id="@+id/inputTextView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@android:color/darker_gray"
-        android:gravity="bottom|right"
-        android:text="333333"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/outputTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/lineKeyAndText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.19" />
 </android.support.constraint.ConstraintLayout>
