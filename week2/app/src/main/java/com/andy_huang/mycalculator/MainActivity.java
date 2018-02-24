@@ -15,6 +15,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton buttonPlus,buttonDot,buttonEqual,buttonMinus,buttonMutiple,
                         buttonReset,buttonChangesign,buttonPerCent,buttonDivide;
 
+    private InputTextContent inputTextContent = new InputTextContent();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //hidden the title
@@ -29,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
         setButtonValue();
 
         outputView.setText("88888");
-
-
 
     }
 
@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         buttonPerCent    = (ImageButton) findViewById(R.id.keyPerC_ent);
         buttonDivide     = (ImageButton) findViewById(R.id.keyDivide);
 
-
         buttonNum0.setOnClickListener(new MyListener());
         buttonNum1.setOnClickListener(new MyListener());
         buttonNum2.setOnClickListener(new MyListener());
@@ -87,71 +86,98 @@ public class MainActivity extends AppCompatActivity {
                 Class MyListener for buttons 
     ******************************************************/
     public class MyListener implements View.OnClickListener {
+
+        private String inputChar;
+        private String type;
+
         public void onClick(View v) {
-            //get the button id
+            //get the button id to select event
             switch (v.getId()) {
                 case R.id.keyNumber0:
-                    inputView.setText("0000");
+                    inputChar = "0";
+                    type ="Number";
                     break;
                 case R.id.keyNumber1:
-                    inputView.setText("1111");
+                    inputChar = "1";
+                    type ="Number";
                     break;
                 case R.id.keyNumber2:
-                    inputView.setText("2222");
+                    inputChar = "2";
+                    type ="Number";
                     break;
                 case R.id.keyNumber3:
-                    inputView.setText("3333");
+                    inputChar = "3";
+                    type ="Number";
                     break;
                 case R.id.keyNumber4:
-                    inputView.setText("4444");
+                    inputChar = "4";
+                    type ="Number";
                     break;
                 case R.id.keyNumber5:
-                    inputView.setText("5555");
+                    inputChar = "5";
+                    type ="Number";
                     break;
                 case R.id.keyNumber6:
-                    inputView.setText("6666");
+                    inputChar = "6";
+                    type ="Number";
                     break;
                 case R.id.keyNumber7:
-                    inputView.setText("7777");
+                    inputChar = "7";
+                    type ="Number";
                     break;
                 case R.id.keyNumber8:
-                    inputView.setText("8888");
+                    inputChar = "8";
+                    type ="Number";
                     break;
                 case R.id.keyNumber9:
-                    inputView.setText("9999");
+                    inputChar = "9";
+                    type ="Number";
                     break;
                 case R.id.keyPlus:
-                    inputView.setText("++++");
+                    inputChar = "+";
+                    type ="+-*/";
                     break;
                 case R.id.keyDot:
-                    inputView.setText("....");
+                    inputChar = ".";
+                    type ="dot";
                     break;
                 case R.id.keyEqual:
-                    inputView.setText("====");
+                    inputChar = "=";
+                    type ="equal";
                     break;
                 case R.id.keyMinus:
-                    inputView.setText("----");
+                    inputChar = "-";
+                    type ="+-*/";
                     break;
                 case R.id.keyMutiple:
-                    inputView.setText("****");
+                    inputChar = "*";
+                    type ="+-*/";
                     break;
                 case R.id.keyChangesign:
-                    inputView.setText("ChCh");
+                    inputChar = "±";
+                    type ="changesign";
                     break;
                 case R.id.keyPerC_ent:
-                    inputView.setText("%%%%");
+                    inputChar = "%";
+                    type ="percent";
                     break;
                 case R.id.keyDivide:
-                    inputView.setText("////");
+                    inputChar = "/";
+                    type ="+-*/";
                     break;
                 case R.id.keyReset:
-                    inputView.setText("CCCC");
+                    inputChar = "C";
+                    type ="reset";
                     break;
 
                 default:
-
                     break;
-            }
-        }
+            }//end of switch
+
+            //input the Key
+            inputTextContent.setTextContent(inputChar,type);
+            //get the Text and set into inputView
+            inputView.setText(inputTextContent.getTextAfter());
+        }//end of Onclick
     }
 }
