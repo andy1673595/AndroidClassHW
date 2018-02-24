@@ -12,6 +12,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView outputView ;
     private ImageButton buttonNum0,buttonNum1,buttonNum2,buttonNum3,buttonNum4,
                         buttonNum5,buttonNum6,buttonNum7,buttonNum8,buttonNum9;
+    private ImageButton buttonPlus,buttonDot,buttonEqual,buttonMinus,buttonMutiple,
+                        buttonReset,buttonChangesign,buttonPerCent,buttonDivide;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,17 @@ public class MainActivity extends AppCompatActivity {
         buttonNum8 = (ImageButton) findViewById(R.id.keyNumber8);
         buttonNum9 = (ImageButton) findViewById(R.id.keyNumber9);
 
+        buttonPlus       = (ImageButton) findViewById(R.id.keyPlus);
+        buttonDot        = (ImageButton) findViewById(R.id.keyDot);
+        buttonEqual      = (ImageButton) findViewById(R.id.keyEqual);
+        buttonMinus      = (ImageButton) findViewById(R.id.keyMinus);
+        buttonMutiple    = (ImageButton) findViewById(R.id.keyMutiple);
+        buttonReset      = (ImageButton) findViewById(R.id.keyReset);
+        buttonChangesign = (ImageButton) findViewById(R.id.keyChangesign);
+        buttonPerCent    = (ImageButton) findViewById(R.id.keyPerC_ent);
+        buttonDivide     = (ImageButton) findViewById(R.id.keyDivide);
+
+
         buttonNum0.setOnClickListener(new MyListener());
         buttonNum1.setOnClickListener(new MyListener());
         buttonNum2.setOnClickListener(new MyListener());
@@ -57,6 +70,16 @@ public class MainActivity extends AppCompatActivity {
         buttonNum7.setOnClickListener(new MyListener());
         buttonNum8.setOnClickListener(new MyListener());
         buttonNum9.setOnClickListener(new MyListener());
+
+        buttonPlus.setOnClickListener(new MyListener());
+        buttonDot.setOnClickListener(new MyListener());
+        buttonEqual.setOnClickListener(new MyListener());
+        buttonMinus.setOnClickListener(new MyListener());
+        buttonMutiple.setOnClickListener(new MyListener());
+        buttonReset.setOnClickListener(new MyListener());
+        buttonChangesign.setOnClickListener(new MyListener());
+        buttonPerCent.setOnClickListener(new MyListener());
+        buttonDivide.setOnClickListener(new MyListener());
 
     }
 
@@ -96,6 +119,33 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.keyNumber9:
                     inputView.setText("9999");
+                    break;
+                case R.id.keyPlus:
+                    inputView.setText("++++");
+                    break;
+                case R.id.keyDot:
+                    inputView.setText("....");
+                    break;
+                case R.id.keyEqual:
+                    inputView.setText("====");
+                    break;
+                case R.id.keyMinus:
+                    inputView.setText("----");
+                    break;
+                case R.id.keyMutiple:
+                    inputView.setText("****");
+                    break;
+                case R.id.keyChangesign:
+                    inputView.setText("ChCh");
+                    break;
+                case R.id.keyPerC_ent:
+                    inputView.setText("%%%%");
+                    break;
+                case R.id.keyDivide:
+                    inputView.setText("////");
+                    break;
+                case R.id.keyReset:
+                    inputView.setText("CCCC");
                     break;
 
                 default:

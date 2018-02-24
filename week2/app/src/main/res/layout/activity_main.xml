@@ -190,7 +190,7 @@
         app:layout_constraintBottom_toTopOf="@+id/keyNumber4"
         app:layout_constraintEnd_toStartOf="@+id/keyNumber8"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/keyC"
+        app:layout_constraintTop_toBottomOf="@+id/keyReset"
         app:srcCompat="@drawable/calculator_7" />
 
     <ImageButton
@@ -203,7 +203,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/keyNumber7"
         app:layout_constraintEnd_toStartOf="@+id/keyNumber9"
         app:layout_constraintStart_toEndOf="@+id/keyNumber7"
-        app:layout_constraintTop_toBottomOf="@+id/keyC"
+        app:layout_constraintTop_toBottomOf="@+id/keyReset"
         app:srcCompat="@drawable/calculator_8" />
 
     <ImageButton
@@ -232,28 +232,28 @@
 
 
     <ImageButton
-        android:id="@+id/keyC"
+        android:id="@+id/keyReset"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/MyCaculator_Key"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/keyNumber7"
-        app:layout_constraintEnd_toStartOf="@+id/keyPlusAndMinus"
+        app:layout_constraintEnd_toStartOf="@+id/keyChangesign"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/outputTextView"
         app:srcCompat="@drawable/calculator_reset" />
 
     <ImageButton
-        android:id="@+id/keyPlusAndMinus"
+        android:id="@+id/keyChangesign"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/MyCaculator_Key"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/keyC"
+        app:layout_constraintBottom_toBottomOf="@+id/keyReset"
         app:layout_constraintEnd_toStartOf="@+id/keyPerC_ent"
-        app:layout_constraintStart_toEndOf="@+id/keyC"
-        app:layout_constraintTop_toTopOf="@+id/keyC"
+        app:layout_constraintStart_toEndOf="@+id/keyReset"
+        app:layout_constraintTop_toTopOf="@+id/keyReset"
         app:srcCompat="@drawable/calculator_changesign" />
 
     <ImageButton
@@ -264,8 +264,8 @@
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/keyNumber9"
         app:layout_constraintEnd_toStartOf="@+id/keyDivide"
-        app:layout_constraintStart_toEndOf="@+id/keyPlusAndMinus"
-        app:layout_constraintTop_toTopOf="@+id/keyC"
+        app:layout_constraintStart_toEndOf="@+id/keyChangesign"
+        app:layout_constraintTop_toTopOf="@+id/keyReset"
         app:srcCompat="@drawable/calculator_percent" />
 
     <ImageButton
@@ -274,10 +274,10 @@
         android:layout_height="0dp"
         android:background="@color/MyCaculator_Key"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/keyC"
+        app:layout_constraintBottom_toBottomOf="@+id/keyReset"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/keyPerC_ent"
-        app:layout_constraintTop_toTopOf="@+id/keyC"
+        app:layout_constraintTop_toTopOf="@+id/keyReset"
         app:srcCompat="@drawable/calculator_divide" />
 
 
