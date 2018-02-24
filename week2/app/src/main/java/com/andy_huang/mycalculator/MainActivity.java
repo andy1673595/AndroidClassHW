@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*****************************************************
-                Class MyListener for buttons
+                Class MyListener for buttons 
     ******************************************************/
     public class MyListener implements View.OnClickListener {
         public void onClick(View v) {
