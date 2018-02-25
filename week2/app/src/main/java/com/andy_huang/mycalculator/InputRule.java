@@ -62,8 +62,7 @@ public class InputRule {
                         outputOnInputText="0";
                         answer ="0";
                     }
-
-
+                     
 
                 }
  
