@@ -2,13 +2,14 @@ package com.andy_huang.mycalculator;
 import java.util.Stack;
 
 public class InputRule {
-    Caculate caculate = new Caculate();
+
     private Stack<String> inputStack = new Stack<String>();
     private String recentState = "zero";
     private String inputType = "";
     private String numberTemp="";
     private String keyChar;
     private String outputOnInputText="0";
+    private String answer = "0";
     private boolean positiveOrNagtive = true;
     private boolean percent = false;
 
@@ -19,15 +20,15 @@ public class InputRule {
 
         //reset all variable
         if(inputType == "reset") {
-            recentState = "zero";
-            numberTemp="";
+            resetFunction();
             outputOnInputText="0";
-            positiveOrNagtive = true;
-            percent = false;
+            answer ="0";
         }
         //KeyEqual ,Start to caculate
         else if(inputType == "equal") {
             //Start to caculate
+            Caculate caculate = new Caculate();
+
             if(recentState =="NumberFrontPart"||recentState =="NumberBackPart"
                     ||recentState =="zero"||recentState =="±0") {
                 //push last number
@@ -35,16 +36,52 @@ public class InputRule {
                 else {numberTemp=numberHandle(numberTemp);}
 
                 inputStack.push(numberTemp);
+
                 //call caculate function
-                outputOnInputText = caculate.caculateString(inputStack);
-                //set variables
-                recentState = "NumberBackPart";
-                numberTemp="";
-                positiveOrNagtive = true;
-                percent = false;
+                answer = caculate.caculateString(inputStack);
+                //reset variables
+
+                if(answer=="error" ||answer =="Infinity"||answer =="-Infinity") {
+                    inputStack.clear();
+                    recentState = "error";
+                    numberTemp="";
+                    positiveOrNagtive = true;
+                    percent = false;
+                }
+                else if(numberIsInteger(answer)) {
+                    //cut part ".0"
+                    if(!answer.equals("0")) {
+                        answer=answer.substring(0,answer.length()-2);
+                        resetFunction();
+                        recentState ="NumberFrontPart";
+                        outputOnInputText = answer;
+                        numberTemp+= answer;
+                    }
+                    else {
+                        resetFunction();
+                        outputOnInputText="0";
+                        answer ="0";
+                    }
+
+
+
+                }
+
+                else {
+                    resetFunction();
+                    outputOnInputText = answer;
+                    numberTemp+= answer;
+                    recentState ="NumberBackPart";
+                }
+
+
+
             }
             //Illegal input string
-            else {outputOnInputText="error";}
+            else {
+                recentState = "error";
+                answer="error";
+            }
         }
         else{ FSM(recentState, inputType); }
     }
@@ -55,6 +92,26 @@ public class InputRule {
     public String getTextAfter(){
         return outputOnInputText;
     }
+
+    public String getAnswer(){
+        return answer;
+    }
+
+    public void resetFunction(){
+        inputStack.clear();
+        recentState = "zero";
+        numberTemp="";
+        positiveOrNagtive = true;
+        percent = false;
+    }
+
+    public boolean numberIsInteger(String number) {
+        float numberFloat = Float.valueOf(number);
+        int numInt = (int) numberFloat;
+        return  numInt == numberFloat;
+    }
+
+
 
     /*****************************************************
             Final State Machine
@@ -68,9 +125,6 @@ public class InputRule {
                     recentState = "dot";
                     numberTemp = "0.";    //mean 0.XXXX
                     outputOnInputText="0.";
-                }
-                else if(inputType == "0") {
-                    recentState = "zero";
                 }
                 else if(inputType =="%") {
                     recentState = "PorN";
@@ -110,7 +164,7 @@ public class InputRule {
                     percent = true;
                     outputOnInputText+="%";
                 }
-                else if (inputType=="±" && !percent) {
+                else if (inputType=="±") {
                     recentState = "PorN";
                     positiveOrNagtive = !positiveOrNagtive;
                     outputOnInputText+="±";
@@ -142,6 +196,16 @@ public class InputRule {
                     recentState = "NumberFrontPart";
                     numberTemp += keyChar;
                     outputOnInputText+=keyChar;
+                }
+                else if(inputType=="-") {
+                    recentState = "Nagtive";
+                    outputOnInputText+=keyChar;
+                    positiveOrNagtive = !positiveOrNagtive;
+                }
+                else if(inputType =="±") {
+                    recentState = "PorN";
+                    outputOnInputText += keyChar;
+                    positiveOrNagtive = !positiveOrNagtive;
                 }
                 break;
 
@@ -208,11 +272,19 @@ public class InputRule {
                 }
                 break;
             case "+-*/":
-                if(inputType =="+*/"||inputType =="-") {
+                if(inputType =="+*/") {
                     recentState = "+-*/";
                     outputOnInputText=outputOnInputText.substring(0,outputOnInputText.length()-1);
                     outputOnInputText+= keyChar;
                 }
+                else if(inputType =="-") {
+                    recentState = "Nagtive";
+                    char op = outputOnInputText.charAt(outputOnInputText.length()-1);
+                    inputStack.push(String.valueOf(op));
+                    outputOnInputText += keyChar;
+                    positiveOrNagtive = !positiveOrNagtive;
+                }
+
                 else if(inputType =="1~9") {
                     recentState = "NumberFrontPart";
                     numberTemp+= keyChar;
@@ -223,15 +295,21 @@ public class InputRule {
                 }
                 else if(inputType =="0") {
                     recentState = "±0";
+                    char op = outputOnInputText.charAt(outputOnInputText.length()-1);
+                    inputStack.push(String.valueOf(op));
                     outputOnInputText+="0";
                 }
                 else if(inputType =="%"){
                     recentState ="PorN";
+                    char op = outputOnInputText.charAt(outputOnInputText.length()-1);
+                    inputStack.push(String.valueOf(op));
                     outputOnInputText+= "%";
                     percent = true;
                 }
                 else if(inputType == "±") {
                     recentState = "PorN";
+                    char op = outputOnInputText.charAt(outputOnInputText.length()-1);
+                    inputStack.push(String.valueOf(op));
                     positiveOrNagtive = !positiveOrNagtive;
                     outputOnInputText += "±";
                 }
