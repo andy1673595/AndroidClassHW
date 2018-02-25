@@ -8,7 +8,7 @@ public class Caculate {
     private String result;
     private String recentOP="";
     private String element="";
-
+    
     public String caculateString(Stack<String> stringForCaculation) {
         //reverse the string stack
         stringForCaculation.push("end");
