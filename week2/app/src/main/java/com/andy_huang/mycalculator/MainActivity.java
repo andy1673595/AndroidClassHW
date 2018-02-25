@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton buttonPlus,buttonDot,buttonEqual,buttonMinus,buttonMutiple,
                         buttonReset,buttonChangesign,buttonPerCent,buttonDivide;
 
-    private InputTextContent inputTextContent = new InputTextContent();
+    private InputRule inputRule = new InputRule();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,51 +95,51 @@ public class MainActivity extends AppCompatActivity {
             switch (v.getId()) {
                 case R.id.keyNumber0:
                     inputChar = "0";
-                    type ="Number";
+                    type ="0";
                     break;
                 case R.id.keyNumber1:
                     inputChar = "1";
-                    type ="Number";
+                    type ="1~9";
                     break;
                 case R.id.keyNumber2:
                     inputChar = "2";
-                    type ="Number";
+                    type ="1~9";
                     break;
                 case R.id.keyNumber3:
                     inputChar = "3";
-                    type ="Number";
+                    type ="1~9";
                     break;
                 case R.id.keyNumber4:
                     inputChar = "4";
-                    type ="Number";
+                    type ="1~9";
                     break;
                 case R.id.keyNumber5:
                     inputChar = "5";
-                    type ="Number";
+                    type ="1~9";
                     break;
                 case R.id.keyNumber6:
                     inputChar = "6";
-                    type ="Number";
+                    type ="1~9";
                     break;
                 case R.id.keyNumber7:
                     inputChar = "7";
-                    type ="Number";
+                    type ="1~9";
                     break;
                 case R.id.keyNumber8:
                     inputChar = "8";
-                    type ="Number";
+                    type ="1~9";
                     break;
                 case R.id.keyNumber9:
                     inputChar = "9";
-                    type ="Number";
+                    type ="1~9";
                     break;
                 case R.id.keyPlus:
                     inputChar = "+";
-                    type ="+-*/";
+                    type ="+*/";
                     break;
                 case R.id.keyDot:
                     inputChar = ".";
-                    type ="dot";
+                    type =".";
                     break;
                 case R.id.keyEqual:
                     inputChar = "=";
@@ -147,23 +147,23 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.keyMinus:
                     inputChar = "-";
-                    type ="+-*/";
+                    type ="-";
                     break;
                 case R.id.keyMutiple:
                     inputChar = "*";
-                    type ="+-*/";
+                    type ="+*/";
                     break;
                 case R.id.keyChangesign:
                     inputChar = "±";
-                    type ="changesign";
+                    type ="±";
                     break;
                 case R.id.keyPerC_ent:
                     inputChar = "%";
-                    type ="percent";
+                    type ="%";
                     break;
                 case R.id.keyDivide:
                     inputChar = "/";
-                    type ="+-*/";
+                    type ="+*/";
                     break;
                 case R.id.keyReset:
                     inputChar = "C";
@@ -175,9 +175,9 @@ public class MainActivity extends AppCompatActivity {
             }//end of switch
 
             //input the Key
-            inputTextContent.setTextContent(inputChar,type);
+            inputRule.inuputForRule(inputChar,type);
             //get the Text and set into inputView
-            inputView.setText(inputTextContent.getTextAfter());
+            inputView.setText(inputRule.getTextAfter());
         }//end of Onclick
     }
 }
