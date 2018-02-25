@@ -66,7 +66,7 @@ public class InputRule {
 
 
                 }
-
+ 
                 else {
                     resetFunction();
                     outputOnInputText = answer;
