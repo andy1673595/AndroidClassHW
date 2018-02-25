@@ -62,8 +62,6 @@ public class InputRule {
                         outputOnInputText="0";
                         answer ="0";
                     }
-                     
-
                 }
  
                 else {
@@ -72,8 +70,6 @@ public class InputRule {
                     numberTemp+= answer;
                     recentState ="NumberBackPart";
                 }
-
-
 
             }
             //Illegal input string
@@ -84,7 +80,6 @@ public class InputRule {
         }
         else{ FSM(recentState, inputType); }
     }
-
 
 
     //get TextContent Function
@@ -109,7 +104,6 @@ public class InputRule {
         int numInt = (int) numberFloat;
         return  numInt == numberFloat;
     }
-
 
 
     /*****************************************************
@@ -154,7 +148,6 @@ public class InputRule {
                     outputOnInputText = "0";  //Illegal input
                 }
                 break;
-
 
             /****case positive or nagtive****/
             case "PorN":

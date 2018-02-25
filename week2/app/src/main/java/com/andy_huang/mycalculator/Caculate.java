@@ -17,6 +17,7 @@ public class Caculate {
         while (!stringForCaculation.empty() && result!="error") {
             element = stringForCaculation.pop();
 
+            //end mark , pop all element and excute
             if(element.equals("end")) {
                 while(tempStack.size()>1) {
                     //caculate the top from stack
@@ -25,8 +26,8 @@ public class Caculate {
                     tempStack.push(result);
                 }
             }
+            //op * or /
             else if (element.equals("*")||element.equals("/")) {
-
                 if(recentOP =="*"||recentOP =="/") {
                     //caculate the top from stack
                     result = numberOpNumber();
@@ -62,10 +63,11 @@ public class Caculate {
             }
         }
 
-
+        //return the bottom element, which is final answer
         return tempStack.pop();
     }
 
+    //reverse the String
     public Stack<String> reverse(Stack<String> before) {
         Stack<String> after = new Stack<String>();
 
@@ -75,6 +77,7 @@ public class Caculate {
         return after;
     }
 
+    //Function for number excute +-*/
     public String numberOpNumber(){
         float num2 = Float.parseFloat(tempStack.pop());
         String op = tempStack.pop();

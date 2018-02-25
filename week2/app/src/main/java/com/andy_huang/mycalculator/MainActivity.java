@@ -178,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
             inputRule.inuputForRule(inputChar,type);
             //get the Text and set into inputView
             inputView.setText(inputRule.getTextAfter());
+            //get the answer and set it into View
             outputView.setText(inputRule.getAnswer());
         }//end of Onclick
     }
