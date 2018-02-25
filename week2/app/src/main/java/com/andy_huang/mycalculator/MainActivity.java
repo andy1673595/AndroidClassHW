@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         setButtonValue();
 
-        outputView.setText("88888");
+        outputView.setText("0");
 
     }
 

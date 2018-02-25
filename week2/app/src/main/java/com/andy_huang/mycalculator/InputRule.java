@@ -2,7 +2,7 @@ package com.andy_huang.mycalculator;
 import java.util.Stack;
 
 public class InputRule {
-
+    Caculate caculate = new Caculate();
     private Stack<String> inputStack = new Stack<String>();
     private String recentState = "zero";
     private String inputType = "";
@@ -16,7 +16,37 @@ public class InputRule {
     public void inuputForRule(String inputChar,String input) {
         inputType = input;
         keyChar = inputChar;
-        FSM(recentState,inputType);
+
+        //reset all variable
+        if(inputType == "reset") {
+            recentState = "zero";
+            numberTemp="";
+            outputOnInputText="0";
+            positiveOrNagtive = true;
+            percent = false;
+        }
+        //KeyEqual ,Start to caculate
+        else if(inputType == "equal") {
+            //Start to caculate
+            if(recentState =="NumberFrontPart"||recentState =="NumberBackPart"
+                    ||recentState =="zero"||recentState =="±0") {
+                //push last number
+                if(recentState =="zero"||recentState =="±0") {numberTemp ="0";}
+                else {numberTemp=numberHandle(numberTemp);}
+
+                inputStack.push(numberTemp);
+                //call caculate function
+                outputOnInputText = caculate.caculateString(inputStack);
+                //set variables
+                recentState = "NumberBackPart";
+                numberTemp="";
+                positiveOrNagtive = true;
+                percent = false;
+            }
+            //Illegal input string
+            else {outputOnInputText="error";}
+        }
+        else{ FSM(recentState, inputType); }
     }
 
 
