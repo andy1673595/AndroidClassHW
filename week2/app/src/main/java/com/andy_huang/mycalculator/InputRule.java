@@ -1,5 +1,4 @@
 package com.andy_huang.mycalculator;
-
 import java.util.Stack;
 
 public class InputRule {
@@ -7,7 +6,7 @@ public class InputRule {
     private Stack<String> inputStack = new Stack<String>();
     private String recentState = "zero";
     private String inputType = "";
-    private String numberTemp;
+    private String numberTemp="";
     private String keyChar;
     private String outputOnInputText="0";
     private boolean positiveOrNagtive = true;
@@ -30,8 +29,8 @@ public class InputRule {
     /*****************************************************
             Final State Machine
      ******************************************************/
-    public void FSM(String recentState,String inputType) {
-        switch (recentState){
+    public void FSM(String recentStateIN,String inputType) {
+        switch (recentStateIN){
 
             /******case initial zero******/
             case "zero":
@@ -87,7 +86,7 @@ public class InputRule {
                     outputOnInputText+="±";
                 }
                 else if(inputType =="-") {
-                    recentState = "Nagtive";
+                    recentState = "PorN";
                     positiveOrNagtive = !positiveOrNagtive;
                     outputOnInputText+="-";
                 }
@@ -126,7 +125,7 @@ public class InputRule {
                 else if(inputType=="1~9") {
                     recentState="NumberFrontPart";
                     //delete the 0,and add new number
-                    outputOnInputText.substring(0,outputOnInputText.length()-1);
+                    outputOnInputText=outputOnInputText.substring(0,outputOnInputText.length()-1);
                     outputOnInputText+= keyChar;
                     numberTemp += keyChar;
                 }
@@ -138,9 +137,11 @@ public class InputRule {
 
             /**********NumberFrontPart**********/
             case "NumberFrontPart":
+
                 if(inputType ==".") {
                     recentState = "dot";
                     outputOnInputText+=".";
+                    numberTemp+=".";
                 }
                 else if(inputType=="1~9"||inputType=="0") {
                     recentState = "NumberFrontPart";
@@ -179,14 +180,14 @@ public class InputRule {
             case "+-*/":
                 if(inputType =="+*/"||inputType =="-") {
                     recentState = "+-*/";
-                    outputOnInputText.substring(0,outputOnInputText.length()-1);
+                    outputOnInputText=outputOnInputText.substring(0,outputOnInputText.length()-1);
                     outputOnInputText+= keyChar;
                 }
                 else if(inputType =="1~9") {
                     recentState = "NumberFrontPart";
                     numberTemp+= keyChar;
                     //push +-*/ into stack
-                    char op = outputOnInputText.charAt(outputOnInputText.length());
+                    char op = outputOnInputText.charAt(outputOnInputText.length()-1);
                     inputStack.push(String.valueOf(op));
                     outputOnInputText+=keyChar;
                 }
