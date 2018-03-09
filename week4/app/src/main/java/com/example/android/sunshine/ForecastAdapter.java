@@ -17,28 +17,38 @@ package com.example.android.sunshine;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.android.sunshine.data.WeatherContract;
 import com.example.android.sunshine.utilities.SunshineDateUtils;
 import com.example.android.sunshine.utilities.SunshineWeatherUtils;
 
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * {@link ForecastAdapter} exposes a list of weather forecasts
  * from a {@link android.database.Cursor} to a {@link android.support.v7.widget.RecyclerView}.
  */
 class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapterViewHolder>
-    implements ItemTouchHelperAdapter {
+        implements ItemTouchHelperAdapter {
 
     private static final int VIEW_TYPE_TODAY = 0;
     private static final int VIEW_TYPE_FUTURE_DAY = 1;
+    private LinkedList<Integer> idAndPositionList = new LinkedList<Integer>();
+    private boolean firstTime = true;
+    private int positionRemove;
+    private int positionFrom;
+    private int positionTo;
 
     /* The context we use to utility methods, app resources and layout inflaters */
     private final Context mContext;
@@ -81,6 +91,32 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
         mUseTodayLayout = mContext.getResources().getBoolean(R.bool.use_today_layout);
     }
 
+
+    @Override
+    public void onItemDismiss(int position) {
+
+        Uri deleteUri = WeatherContract.WeatherEntry.CONTENT_URI;
+        int idRemove = idAndPositionList.get(position);
+        String selection;
+
+        if(position != 0) {
+            idAndPositionList.remove(position);
+            selection = Integer.toString(idRemove+1);
+            mContext.getContentResolver().delete(deleteUri,selection,null);
+            notifyItemRemoved(position);
+        }
+    }
+
+    @Override
+    public void onItemMove(int from, int to) {
+      //  Collections.swap(mItems, from, to);
+        positionFrom = from;
+        positionTo = to;
+        notifyItemMoved(from, to);
+    }
+
+
+
     /**
      * This gets called when each new ViewHolder is created. This happens when the RecyclerView
      * is laid out. Enough ViewHolders will be created to fill the screen and allow for scrolling.
@@ -101,6 +137,7 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
 
             case VIEW_TYPE_TODAY: {
                 layoutId = R.layout.list_item_forecast_today;
+                View view = LayoutInflater.from(mContext).inflate(layoutId, viewGroup, false);
                 break;
             }
 
@@ -139,6 +176,16 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
         int weatherId = mCursor.getInt(MainActivity.INDEX_WEATHER_CONDITION_ID);
         int weatherImageId;
 
+        /********List**********/
+        if(firstTime) {
+            for(int i=0; i<mCursor.getCount();i++) {
+                idAndPositionList.add(i);
+            }
+            firstTime = false;
+        }
+        /********List**********/
+
+
         int viewType = getItemViewType(position);
 
         switch (viewType) {
@@ -158,6 +205,7 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
         }
 
         forecastAdapterViewHolder.iconView.setImageResource(weatherImageId);
+
 
         /****************
          * Weather Date *
@@ -259,21 +307,7 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
     void swapCursor(Cursor newCursor) {
         mCursor = newCursor;
         notifyDataSetChanged();
-    }
 
-    /***************************************/
-    /******** implement ItemTouchAdapter *********/
-    /***************************************/
-    @Override
-    public void onItemDismiss(int position) {
-        mItems.remove(position);
-        notifyItemRemoved(position);
-    }
-
-    @Override
-    public void onItemMove(int from, int to) {
-        Collections.swap(mItems, from, to);
-        notifyItemMoved(from, to);
     }
 
     /**

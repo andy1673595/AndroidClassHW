@@ -293,35 +293,22 @@ public class WeatherProvider extends ContentProvider {
         return cursor;
     }
 
-    /**
-     * Deletes data at a given URI with optional arguments for more fine tuned deletions.
-     *
-     * @param uri           The full URI to query
-     * @param selection     An optional restriction to apply to rows when deleting.
-     * @param selectionArgs Used in conjunction with the selection statement
-     * @return The number of rows deleted
-     */
+
     @Override
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
 
         /* Users of the delete method will expect the number of rows deleted to be returned. */
         int numRowsDeleted;
 
-        /*
-         * If we pass null as the selection to SQLiteDatabase#delete, our entire table will be
-         * deleted. However, if we do pass null and delete all of the rows in the table, we won't
-         * know how many rows were deleted. According to the documentation for SQLiteDatabase,
-         * passing "1" for the selection will delete all rows and return the number of rows
-         * deleted, which is what the caller of this method expects.
-         */
         if (null == selection) selection = "1";
 
         switch (sUriMatcher.match(uri)) {
 
+//          COMPLETED (2) Only implement the functionality, given the proper URI, to delete ALL rows in the weather table
             case CODE_WEATHER:
                 numRowsDeleted = mOpenHelper.getWritableDatabase().delete(
                         WeatherContract.WeatherEntry.TABLE_NAME,
-                        selection,
+                        WeatherContract.WeatherEntry._ID + "="+ selection,
                         selectionArgs);
 
                 break;
@@ -335,6 +322,7 @@ public class WeatherProvider extends ContentProvider {
             getContext().getContentResolver().notifyChange(uri, null);
         }
 
+//      COMPLETED (3) Return the number of rows deleted
         return numRowsDeleted;
     }
 
