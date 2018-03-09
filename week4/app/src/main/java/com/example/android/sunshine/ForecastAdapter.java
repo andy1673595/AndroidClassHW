@@ -34,14 +34,7 @@ import com.example.android.sunshine.utilities.SunshineWeatherUtils;
 
 import java.util.LinkedList;
 
-import static com.example.android.sunshine.DetailActivity.INDEX_WEATHER_CONDITION_ID;
-import static com.example.android.sunshine.DetailActivity.INDEX_WEATHER_DATE;
-import static com.example.android.sunshine.DetailActivity.INDEX_WEATHER_DEGREES;
-import static com.example.android.sunshine.DetailActivity.INDEX_WEATHER_HUMIDITY;
-import static com.example.android.sunshine.DetailActivity.INDEX_WEATHER_MAX_TEMP;
-import static com.example.android.sunshine.DetailActivity.INDEX_WEATHER_MIN_TEMP;
-import static com.example.android.sunshine.DetailActivity.INDEX_WEATHER_PRESSURE;
-import static com.example.android.sunshine.DetailActivity.INDEX_WEATHER_WIND_SPEED;
+
 
 /**
  * {@link ForecastAdapter} exposes a list of weather forecasts
@@ -56,6 +49,8 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
     private boolean firstTime = true;
     /* The context we use to utility methods, app resources and layout inflaters */
     private final Context mContext;
+    private int listlength =0;
+    private boolean firstSwiped = true;
 
     /*
      * Below, we've defined an interface to handle clicks on items within this Adapter. In the
@@ -98,8 +93,13 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
 
     @Override
     public void onItemDismiss(int position) {
-
         Uri deleteUri = WeatherContract.WeatherEntry.CONTENT_URI;
+
+        //第一次進行刪除 讀取長度
+        if(firstSwiped) {
+            listlength = mCursor.getCount();
+            firstSwiped = false;
+        }
 
         int idRemove = idAndPositionList.get(position);
         String selection;
@@ -107,10 +107,12 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
         /**********若不是Today項則進行刪除***********/
         if(position != 0) {
             idAndPositionList.remove(position);
+            listlength--;
             //因為有today項 所以必須+1
             selection = Integer.toString(idRemove+1);
-            mContext.getContentResolver().delete(deleteUri,selection,null);
             notifyItemRemoved(position);
+            mContext.getContentResolver().delete(deleteUri,selection,null);
+
         }
     }
 
@@ -130,7 +132,7 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
         int positonChangeBefore = mCursor.getPosition();
 
         /**************Load data "to"******************/
-        mCursor.moveToPosition(to);
+        //mCursor.moveToPosition(to);
         long localDateMidnightGmt2 = mCursor.getLong(0);
         double highInCelsius2 = mCursor.getDouble(1);
         double lowInCelsius2 = mCursor.getDouble(2);
@@ -150,7 +152,7 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
         contentValues2.put(WeatherContract.WeatherEntry.COLUMN_DEGREES,windDirection2);
 
         /**************Load data "from"******************/
-        mCursor.moveToPosition(from);
+        //mCursor.moveToPosition(from);
 
         long localDateMidnightGmt = mCursor.getLong(0);
         double highInCelsius = mCursor.getDouble(1);
@@ -170,15 +172,15 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
         contentValues.put(WeatherContract.WeatherEntry.COLUMN_WIND_SPEED,windSpeed);
         contentValues.put(WeatherContract.WeatherEntry.COLUMN_DEGREES,windDirection);
         /*******回到原來的位置********/
-        mCursor.moveToPosition(positonChangeBefore);
+       // mCursor.moveToPosition(positonChangeBefore);
 
         /*******交換********/
 
-        selection1 = String.valueOf(localDateMidnightGmt2);
-        mContext.getContentResolver().update(moveUri,contentValues,selection1,null);
+       // selection1 = String.valueOf(localDateMidnightGmt2);
+    //   mContext.getContentResolver().update(moveUri,contentValues,selection1,null);
 
-        selection2 =  String.valueOf(localDateMidnightGmt);
-        mContext.getContentResolver().update(moveUri,contentValues2,selection2,null);
+     //  selection2 =  String.valueOf(localDateMidnightGmt);
+     //   mContext.getContentResolver().update(moveUri,contentValues2,selection2,null);
 
 
         notifyItemMoved(from, to);
@@ -244,10 +246,19 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
                 idAndPositionList.add(i);
             }
             firstTime = false;
+            mCursor.moveToPosition(position);
         }
-        /********List**********/
 
-        mCursor.moveToPosition(position);
+
+        else {
+            if(position < idAndPositionList.size()) {
+                mCursor.moveToPosition(idAndPositionList.get(position));
+            }
+
+            else {
+                return;
+            }
+        }
 
 
         /****************
@@ -346,8 +357,8 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
      */
     @Override
     public int getItemCount() {
-        if (null == mCursor) return 0;
-        return mCursor.getCount();
+            if (null == mCursor) return 0;
+            else return mCursor.getCount();
     }
 
     /**
@@ -378,9 +389,8 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
      * @param newCursor the new cursor to use as ForecastAdapter's data source
      */
     void swapCursor(Cursor newCursor) {
-        mCursor = newCursor;
-        notifyDataSetChanged();
-
+            mCursor = newCursor;
+            notifyDataSetChanged();
     }
 
     /**
