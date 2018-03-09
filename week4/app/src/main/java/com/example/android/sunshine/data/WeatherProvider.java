@@ -296,23 +296,19 @@ public class WeatherProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
-
         /* Users of the delete method will expect the number of rows deleted to be returned. */
         int numRowsDeleted;
 
         if (null == selection) selection = "1";
 
         switch (sUriMatcher.match(uri)) {
-
 //          COMPLETED (2) Only implement the functionality, given the proper URI, to delete ALL rows in the weather table
             case CODE_WEATHER:
                 numRowsDeleted = mOpenHelper.getWritableDatabase().delete(
                         WeatherContract.WeatherEntry.TABLE_NAME,
                         WeatherContract.WeatherEntry._ID + "="+ selection,
                         selectionArgs);
-
                 break;
-
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -321,10 +317,12 @@ public class WeatherProvider extends ContentProvider {
         if (numRowsDeleted != 0) {
             getContext().getContentResolver().notifyChange(uri, null);
         }
-
 //      COMPLETED (3) Return the number of rows deleted
         return numRowsDeleted;
     }
+
+
+
 
     /**
      * In Sunshine, we aren't going to do anything with this method. However, we are required to
@@ -358,9 +356,29 @@ public class WeatherProvider extends ContentProvider {
                 "We are not implementing insert in Sunshine. Use bulkInsert instead");
     }
 
+
     @Override
     public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        throw new RuntimeException("We are not implementing update in Sunshine");
+        int numUpdate;
+        if (null == selection) selection = "1";
+
+        switch (sUriMatcher.match(uri)) {
+            case CODE_WEATHER:
+                numUpdate = mOpenHelper.getWritableDatabase().update(
+                        WeatherContract.WeatherEntry.TABLE_NAME,
+                        values,
+                        WeatherContract.WeatherEntry._ID + "="+ selection,
+                        selectionArgs);
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+
+        if (numUpdate != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        getContext().getContentResolver().notifyChange(uri, null);
+        return numUpdate;
     }
 
     /**

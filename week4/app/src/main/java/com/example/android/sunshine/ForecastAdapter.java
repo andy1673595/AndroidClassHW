@@ -15,12 +15,12 @@
  */
 package com.example.android.sunshine;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,9 +31,17 @@ import com.example.android.sunshine.data.WeatherContract;
 import com.example.android.sunshine.utilities.SunshineDateUtils;
 import com.example.android.sunshine.utilities.SunshineWeatherUtils;
 
-import java.util.Collections;
+
 import java.util.LinkedList;
-import java.util.List;
+
+import static com.example.android.sunshine.DetailActivity.INDEX_WEATHER_CONDITION_ID;
+import static com.example.android.sunshine.DetailActivity.INDEX_WEATHER_DATE;
+import static com.example.android.sunshine.DetailActivity.INDEX_WEATHER_DEGREES;
+import static com.example.android.sunshine.DetailActivity.INDEX_WEATHER_HUMIDITY;
+import static com.example.android.sunshine.DetailActivity.INDEX_WEATHER_MAX_TEMP;
+import static com.example.android.sunshine.DetailActivity.INDEX_WEATHER_MIN_TEMP;
+import static com.example.android.sunshine.DetailActivity.INDEX_WEATHER_PRESSURE;
+import static com.example.android.sunshine.DetailActivity.INDEX_WEATHER_WIND_SPEED;
 
 /**
  * {@link ForecastAdapter} exposes a list of weather forecasts
@@ -46,10 +54,6 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
     private static final int VIEW_TYPE_FUTURE_DAY = 1;
     private LinkedList<Integer> idAndPositionList = new LinkedList<Integer>();
     private boolean firstTime = true;
-    private int positionRemove;
-    private int positionFrom;
-    private int positionTo;
-
     /* The context we use to utility methods, app resources and layout inflaters */
     private final Context mContext;
 
@@ -96,11 +100,14 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
     public void onItemDismiss(int position) {
 
         Uri deleteUri = WeatherContract.WeatherEntry.CONTENT_URI;
+
         int idRemove = idAndPositionList.get(position);
         String selection;
 
+        /**********若不是Today項則進行刪除***********/
         if(position != 0) {
             idAndPositionList.remove(position);
+            //因為有today項 所以必須+1
             selection = Integer.toString(idRemove+1);
             mContext.getContentResolver().delete(deleteUri,selection,null);
             notifyItemRemoved(position);
@@ -109,9 +116,70 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
 
     @Override
     public void onItemMove(int from, int to) {
-      //  Collections.swap(mItems, from, to);
-        positionFrom = from;
-        positionTo = to;
+        Uri moveUri = WeatherContract.WeatherEntry.CONTENT_URI;
+
+        /********List進行交換位置**********/
+        int idFrom = idAndPositionList.get(from);
+        idAndPositionList.set(from,idAndPositionList.get(to));
+        idAndPositionList.set(to,idFrom);
+        /*******************************/
+
+        String selection;
+        ContentValues contentValues = new ContentValues();
+        ContentValues contentValues2 = new ContentValues();
+        int positonChangeBefore = mCursor.getPosition();
+
+        /**************Load data "to"******************/
+        mCursor.moveToPosition(to);
+        long localDateMidnightGmt2 = mCursor.getLong(INDEX_WEATHER_DATE);
+        int weatherId2 = mCursor.getInt(INDEX_WEATHER_CONDITION_ID);
+        double highInCelsius2 = mCursor.getDouble(INDEX_WEATHER_MAX_TEMP);
+        double lowInCelsius2 = mCursor.getDouble(INDEX_WEATHER_MIN_TEMP);
+        float humidity2 = mCursor.getFloat(INDEX_WEATHER_HUMIDITY);
+        float pressure2 = mCursor.getFloat(INDEX_WEATHER_PRESSURE);
+        float windSpeed2 = mCursor.getFloat(INDEX_WEATHER_WIND_SPEED);
+        float windDirection2 = mCursor.getFloat(INDEX_WEATHER_DEGREES);
+
+        contentValues2.put(WeatherContract.WeatherEntry.COLUMN_DATE,localDateMidnightGmt2);
+        contentValues2.put(WeatherContract.WeatherEntry.COLUMN_WEATHER_ID,weatherId2);
+        contentValues2.put(WeatherContract.WeatherEntry.COLUMN_MAX_TEMP,highInCelsius2);
+        contentValues2.put(WeatherContract.WeatherEntry.COLUMN_MIN_TEMP,lowInCelsius2);
+        contentValues2.put(WeatherContract.WeatherEntry.COLUMN_HUMIDITY,humidity2);
+        contentValues2.put(WeatherContract.WeatherEntry.COLUMN_PRESSURE,pressure2);
+        contentValues2.put(WeatherContract.WeatherEntry.COLUMN_WIND_SPEED,windSpeed2);
+        contentValues2.put(WeatherContract.WeatherEntry.COLUMN_DEGREES,windDirection2);
+
+        /**************Load data "from"******************/
+        mCursor.moveToPosition(from);
+
+        long localDateMidnightGmt = mCursor.getLong(INDEX_WEATHER_DATE);
+        int weatherId = mCursor.getInt(INDEX_WEATHER_CONDITION_ID);
+        double highInCelsius = mCursor.getDouble(INDEX_WEATHER_MAX_TEMP);
+        double lowInCelsius = mCursor.getDouble(INDEX_WEATHER_MIN_TEMP);
+        float humidity = mCursor.getFloat(INDEX_WEATHER_HUMIDITY);
+        float pressure= mCursor.getFloat(INDEX_WEATHER_PRESSURE);
+        float windSpeed = mCursor.getFloat(INDEX_WEATHER_WIND_SPEED);
+        float windDirection = mCursor.getFloat(INDEX_WEATHER_DEGREES);
+
+        contentValues.put(WeatherContract.WeatherEntry.COLUMN_DATE,localDateMidnightGmt);
+        contentValues.put(WeatherContract.WeatherEntry.COLUMN_WEATHER_ID,weatherId);
+        contentValues.put(WeatherContract.WeatherEntry.COLUMN_MAX_TEMP,highInCelsius);
+        contentValues.put(WeatherContract.WeatherEntry.COLUMN_MIN_TEMP,lowInCelsius);
+        contentValues.put(WeatherContract.WeatherEntry.COLUMN_HUMIDITY,humidity);
+        contentValues.put(WeatherContract.WeatherEntry.COLUMN_PRESSURE,pressure);
+        contentValues.put(WeatherContract.WeatherEntry.COLUMN_WIND_SPEED,windSpeed);
+        contentValues.put(WeatherContract.WeatherEntry.COLUMN_DEGREES,windDirection);
+
+        /*******交換********/
+        selection = Integer.toString(to);
+        mContext.getContentResolver().update(moveUri,contentValues,selection,null);
+
+        selection = Integer.toString(from);
+        mContext.getContentResolver().update(moveUri,contentValues2,selection,null);
+
+        /*******回到原來的位置********/
+        mCursor.moveToPosition(positonChangeBefore);
+
         notifyItemMoved(from, to);
     }
 
@@ -168,15 +236,8 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
      */
     @Override
     public void onBindViewHolder(ForecastAdapterViewHolder forecastAdapterViewHolder, int position) {
-        mCursor.moveToPosition(position);
 
-        /****************
-         * Weather Icon *
-         ****************/
-        int weatherId = mCursor.getInt(MainActivity.INDEX_WEATHER_CONDITION_ID);
-        int weatherImageId;
-
-        /********List**********/
+        /********firstTime**********/
         if(firstTime) {
             for(int i=0; i<mCursor.getCount();i++) {
                 idAndPositionList.add(i);
@@ -184,6 +245,17 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
             firstTime = false;
         }
         /********List**********/
+
+        mCursor.moveToPosition(position);
+
+
+        /****************
+         * Weather Icon *
+         ****************/
+        int weatherId = mCursor.getInt(MainActivity.INDEX_WEATHER_CONDITION_ID);
+        int weatherImageId;
+
+
 
 
         int viewType = getItemViewType(position);
