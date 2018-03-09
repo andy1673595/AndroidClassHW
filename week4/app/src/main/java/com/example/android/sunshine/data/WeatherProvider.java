@@ -367,7 +367,7 @@ public class WeatherProvider extends ContentProvider {
                 numUpdate = mOpenHelper.getWritableDatabase().update(
                         WeatherContract.WeatherEntry.TABLE_NAME,
                         values,
-                        WeatherContract.WeatherEntry._ID + "="+ selection,
+                        WeatherContract.WeatherEntry.COLUMN_DATE + "="+ selection,
                         selectionArgs);
                 break;
             default:
@@ -377,7 +377,6 @@ public class WeatherProvider extends ContentProvider {
         if (numUpdate != 0) {
             getContext().getContentResolver().notifyChange(uri, null);
         }
-        getContext().getContentResolver().notifyChange(uri, null);
         return numUpdate;
     }
 

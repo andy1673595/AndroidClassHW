@@ -124,26 +124,26 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
         idAndPositionList.set(to,idFrom);
         /*******************************/
 
-        String selection;
+        String selection1,selection2;
         ContentValues contentValues = new ContentValues();
         ContentValues contentValues2 = new ContentValues();
         int positonChangeBefore = mCursor.getPosition();
 
         /**************Load data "to"******************/
         mCursor.moveToPosition(to);
-        long localDateMidnightGmt2 = mCursor.getLong(INDEX_WEATHER_DATE);
-        int weatherId2 = mCursor.getInt(INDEX_WEATHER_CONDITION_ID);
-        double highInCelsius2 = mCursor.getDouble(INDEX_WEATHER_MAX_TEMP);
-        double lowInCelsius2 = mCursor.getDouble(INDEX_WEATHER_MIN_TEMP);
-        float humidity2 = mCursor.getFloat(INDEX_WEATHER_HUMIDITY);
-        float pressure2 = mCursor.getFloat(INDEX_WEATHER_PRESSURE);
-        float windSpeed2 = mCursor.getFloat(INDEX_WEATHER_WIND_SPEED);
-        float windDirection2 = mCursor.getFloat(INDEX_WEATHER_DEGREES);
+        long localDateMidnightGmt2 = mCursor.getLong(0);
+        double highInCelsius2 = mCursor.getDouble(1);
+        double lowInCelsius2 = mCursor.getDouble(2);
+        int weatherId2 = mCursor.getInt(3);
+        float humidity2 = mCursor.getFloat(4);
+        float pressure2 = mCursor.getFloat(5);
+        float windSpeed2 = mCursor.getFloat(6);
+        float windDirection2 = mCursor.getFloat(7);
 
         contentValues2.put(WeatherContract.WeatherEntry.COLUMN_DATE,localDateMidnightGmt2);
-        contentValues2.put(WeatherContract.WeatherEntry.COLUMN_WEATHER_ID,weatherId2);
         contentValues2.put(WeatherContract.WeatherEntry.COLUMN_MAX_TEMP,highInCelsius2);
         contentValues2.put(WeatherContract.WeatherEntry.COLUMN_MIN_TEMP,lowInCelsius2);
+        contentValues2.put(WeatherContract.WeatherEntry.COLUMN_WEATHER_ID,weatherId2);
         contentValues2.put(WeatherContract.WeatherEntry.COLUMN_HUMIDITY,humidity2);
         contentValues2.put(WeatherContract.WeatherEntry.COLUMN_PRESSURE,pressure2);
         contentValues2.put(WeatherContract.WeatherEntry.COLUMN_WIND_SPEED,windSpeed2);
@@ -152,33 +152,34 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
         /**************Load data "from"******************/
         mCursor.moveToPosition(from);
 
-        long localDateMidnightGmt = mCursor.getLong(INDEX_WEATHER_DATE);
-        int weatherId = mCursor.getInt(INDEX_WEATHER_CONDITION_ID);
-        double highInCelsius = mCursor.getDouble(INDEX_WEATHER_MAX_TEMP);
-        double lowInCelsius = mCursor.getDouble(INDEX_WEATHER_MIN_TEMP);
-        float humidity = mCursor.getFloat(INDEX_WEATHER_HUMIDITY);
-        float pressure= mCursor.getFloat(INDEX_WEATHER_PRESSURE);
-        float windSpeed = mCursor.getFloat(INDEX_WEATHER_WIND_SPEED);
-        float windDirection = mCursor.getFloat(INDEX_WEATHER_DEGREES);
+        long localDateMidnightGmt = mCursor.getLong(0);
+        double highInCelsius = mCursor.getDouble(1);
+        double lowInCelsius = mCursor.getDouble(2);
+        int weatherId = mCursor.getInt(3);
+        float humidity = mCursor.getFloat(4);
+        float pressure= mCursor.getFloat(5);
+        float windSpeed = mCursor.getFloat(6);
+        float windDirection = mCursor.getFloat(7);
 
         contentValues.put(WeatherContract.WeatherEntry.COLUMN_DATE,localDateMidnightGmt);
-        contentValues.put(WeatherContract.WeatherEntry.COLUMN_WEATHER_ID,weatherId);
         contentValues.put(WeatherContract.WeatherEntry.COLUMN_MAX_TEMP,highInCelsius);
         contentValues.put(WeatherContract.WeatherEntry.COLUMN_MIN_TEMP,lowInCelsius);
+        contentValues.put(WeatherContract.WeatherEntry.COLUMN_WEATHER_ID,weatherId);
         contentValues.put(WeatherContract.WeatherEntry.COLUMN_HUMIDITY,humidity);
         contentValues.put(WeatherContract.WeatherEntry.COLUMN_PRESSURE,pressure);
         contentValues.put(WeatherContract.WeatherEntry.COLUMN_WIND_SPEED,windSpeed);
         contentValues.put(WeatherContract.WeatherEntry.COLUMN_DEGREES,windDirection);
-
-        /*******交換********/
-        selection = Integer.toString(to);
-        mContext.getContentResolver().update(moveUri,contentValues,selection,null);
-
-        selection = Integer.toString(from);
-        mContext.getContentResolver().update(moveUri,contentValues2,selection,null);
-
         /*******回到原來的位置********/
         mCursor.moveToPosition(positonChangeBefore);
+
+        /*******交換********/
+
+        selection1 = String.valueOf(localDateMidnightGmt2);
+        mContext.getContentResolver().update(moveUri,contentValues,selection1,null);
+
+        selection2 =  String.valueOf(localDateMidnightGmt);
+        mContext.getContentResolver().update(moveUri,contentValues2,selection2,null);
+
 
         notifyItemMoved(from, to);
     }
